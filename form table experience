@@ -1,0 +1,82 @@
+// pages/index.js
+
+// ... (previous imports)
+
+const Form = () => {
+  return (
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography variant="h4" gutterBottom>
+          Sign Up Form
+        </Typography>
+        <form>
+          {/* ... (previous form fields) */}
+          
+          <FormControl component="fieldset" fullWidth margin="normal">
+            <FormLabel component="legend">Experience</FormLabel>
+            <Table>
+              <TableBody>
+                {/* Performance Reviews Row */}
+                <TableRow>
+                  <TableCell>Performance Reviews</TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Very Good" control={<Radio />} label="Very Good" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Good" control={<Radio />} label="Good" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Fair" control={<Radio />} label="Fair" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Poor" control={<Radio />} label="Poor" />
+                  </TableCell>
+                </TableRow>
+
+                {/* Training Row */}
+                <TableRow>
+                  <TableCell>Training</TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Very Good" control={<Radio />} label="Very Good" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Good" control={<Radio />} label="Good" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Fair" control={<Radio />} label="Fair" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Poor" control={<Radio />} label="Poor" />
+                  </TableCell>
+                </TableRow>
+
+                {/* Superior Row */}
+                <TableRow>
+                  <TableCell>Superior</TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Very Good" control={<Radio />} label="Very Good" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Good" control={<Radio />} label="Good" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Fair" control={<Radio />} label="Fair" />
+                  </TableCell>
+                  <TableCell align="center">
+                    <FormControlLabel value="Poor" control={<Radio />} label="Poor" />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </FormControl>
+
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>
+            Submit
+          </Button>
+        </form>
+      </Box>
+    </Container>
+  );
+};
+
+export default Form;
