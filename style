@@ -1,0 +1,50 @@
+// pages/index.js
+
+import React from 'react';
+import { Container, Box, Typography, TextField, Button, FormControl, FormControlLabel, Radio, RadioGroup, FormLabel, Table, TableBody, TableCell, TableRow } from '@mui/material';
+
+const Form = () => {
+  return (
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography variant="h4" gutterBottom>
+          Sign Up Form
+        </Typography>
+        <form>
+          {/* ... (previous form fields) */}
+          
+          <Box sx={{ mt: 4, p: 2, border: '1px solid #ccc', borderRadius: 4 }}>
+            <FormControl component="fieldset" fullWidth margin="normal">
+              <FormLabel component="legend">NCR Office Location</FormLabel>
+              <RadioGroup aria-label="ncr-office-location" name="ncrOfficeLocation" defaultValue="Hyderabad">
+                <FormControlLabel value="Hyderabad" control={<Radio />} label="Hyderabad" />
+                <FormControlLabel value="Godrej Mumbai" control={<Radio />} label="Godrej Mumbai" />
+              </RadioGroup>
+            </FormControl>
+          </Box>
+
+          {/* Experience Field */}
+          <Box sx={{ mt: 4, p: 2, border: '1px solid #ccc', borderRadius: 4 }}>
+            <FormControl component="fieldset" fullWidth margin="normal">
+              <FormLabel component="legend">Experience</FormLabel>
+              <Table>
+                <TableBody>
+                  {/* Experience rows and columns will be added here */}
+                  <TableRow>
+                    {/* ... (experience field content) */}
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </FormControl>
+          </Box>
+
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>
+            Submit
+          </Button>
+        </form>
+      </Box>
+    </Container>
+  );
+};
+
+export default Form;
