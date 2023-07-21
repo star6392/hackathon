@@ -7,6 +7,19 @@ import { Link } from '@mui/material';
 const IndexPage = () => {
   const [isHyderabadOpen, setHyderabadOpen] = useState(false);
   const [isMumbaiOpen, setMumbaiOpen] = useState(false);
+  const [hyderabadClearance, setHyderabadClearance] = useState({
+    it: false,
+    travel: false,
+    payroll: false,
+    greTeam: false,
+    corporateTravel: false,
+    carLease: false,
+    logistics: false,
+  });
+
+  const [mumbaiClearance, setMumbaiClearance] = useState({
+    // Add Mumbai internal buttons and their clearance state here
+  });
 
   const handleHyderabadClick = () => {
     setHyderabadOpen(!isHyderabadOpen);
@@ -14,6 +27,24 @@ const IndexPage = () => {
 
   const handleMumbaiClick = () => {
     setMumbaiOpen(!isMumbaiOpen);
+  };
+
+  const handleHyderabadClearance = (department) => {
+    setHyderabadClearance((prevClearance) => ({
+      ...prevClearance,
+      [department]: !prevClearance[department],
+    }));
+  };
+
+  const handleMumbaiClearance = (department) => {
+    setMumbaiClearance((prevClearance) => ({
+      ...prevClearance,
+      [department]: !prevClearance[department],
+    }));
+  };
+
+  const getButtonColor = (isCleared) => {
+    return isCleared ? 'success' : 'error';
   };
 
   return (
@@ -29,27 +60,27 @@ const IndexPage = () => {
         </Button>
         <Collapse in={isHyderabadOpen}>
           <Box sx={{ mt: 2 }}>
-            <Button component={Link} href="/hyderabad/it" variant="outlined" sx={{ mr: 1, mt: 1 }}>
+            <Button
+              component={Link}
+              href="/hyderabad/it"
+              variant="outlined"
+              color={getButtonColor(hyderabadClearance.it)}
+              onClick={() => handleHyderabadClearance('it')}
+              sx={{ mr: 1, mt: 1 }}
+            >
               IT
             </Button>
-            <Button component={Link} href="/hyderabad/travel" variant="outlined" sx={{ mr: 1, mt: 1 }}>
+            <Button
+              component={Link}
+              href="/hyderabad/travel"
+              variant="outlined"
+              color={getButtonColor(hyderabadClearance.travel)}
+              onClick={() => handleHyderabadClearance('travel')}
+              sx={{ mr: 1, mt: 1 }}
+            >
               Travel and Expenses
             </Button>
-            <Button component={Link} href="/hyderabad/payroll" variant="outlined" sx={{ mr: 1, mt: 1 }}>
-              Payroll
-            </Button>
-            <Button component={Link} href="/hyderabad/gre-team" variant="outlined" sx={{ mr: 1, mt: 1 }}>
-              GRE Team
-            </Button>
-            <Button component={Link} href="/hyderabad/corporate-travel" variant="outlined" sx={{ mr: 1, mt: 1 }}>
-              Corporate Travel
-            </Button>
-            <Button component={Link} href="/hyderabad/car-lease" variant="outlined" sx={{ mr: 1, mt: 1 }}>
-              Car Lease
-            </Button>
-            <Button component={Link} href="/hyderabad/logistics" variant="outlined" sx={{ mt: 1 }}>
-              Logistics
-            </Button>
+            {/* Add other Hyderabad internal buttons with corresponding clearance status */}
           </Box>
         </Collapse>
 
@@ -59,7 +90,7 @@ const IndexPage = () => {
         </Button>
         <Collapse in={isMumbaiOpen}>
           <Box sx={{ mt: 2 }}>
-            {/* Add Mumbai internal buttons here */}
+            {/* Add Mumbai internal buttons with clearance status here */}
           </Box>
         </Collapse>
       </Box>
