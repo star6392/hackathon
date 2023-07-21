@@ -1,210 +1,109 @@
-// pages/index.js
-
-import React, { useState } from 'react';
-import { Container, Box, Typography, Button, Collapse } from '@mui/material';
+import React from 'react';
+import { Container, Box, Typography, Button, Accordion, AccordionSummary, AccordionDetails, FormControl, Select, MenuItem } from '@mui/material';
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { Link } from '@mui/material';
 
-const IndexPage = () => {
-  const [isHyderabadOpen, setHyderabadOpen] = useState(false);
-  const [isMumbaiOpen, setMumbaiOpen] = useState(false);
-  const [hyderabadClearance, setHyderabadClearance] = useState({
-    it: false,
-    travel: false,
-    payroll: false,
-    greTeam: false,
-    corporateTravel: false,
-    carLease: false,
-    logistics: false,
-  });
+class IndexPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedLocation: null,
+      clearanceStatus: {
+        hyderabad: {
+          IT: false,
+          Travel: false,
+          Payroll: false,
+          GRETeam: false,
+          CorporateTravel: false,
+          CarLease: false,
+          Logistics: false,
+        },
+        mumbai: {
+          // Add Mumbai internal buttons and their clearance status here
+        },
+      },
+    };
+  }
 
-  const [mumbaiClearance, setMumbaiClearance] = useState({
-    // Add Mumbai internal buttons and their clearance state here
-  });
-
-  const handleHyderabadClick = () => {
-    setHyderabadOpen(!isHyderabadOpen);
+  handleLocationChange = (event) => {
+    this.setState({ selectedLocation: event.target.value });
   };
 
-  const handleMumbaiClick = () => {
-    setMumbaiOpen(!isMumbaiOpen);
+  toggleClearanceStatus = (department) => {
+    const { selectedLocation, clearanceStatus } = this.state;
+    this.setState({
+      clearanceStatus: {
+        ...clearanceStatus,
+        [selectedLocation]: {
+          ...clearanceStatus[selectedLocation],
+          [department]: !clearanceStatus[selectedLocation][department],
+        },
+      },
+    });
   };
 
-  const handleHyderabadClearance = (department) => {
-    setHyderabadClearance((prevClearance) => ({
-      ...prevClearance,
-      [department]: !prevClearance[department],
-    }));
-  };
-
-  const handleMumbaiClearance = (department) => {
-    setMumbaiClearance((prevClearance) => ({
-      ...prevClearance,
-      [department]: !prevClearance[department],
-    }));
-  };
-
-  const getButtonColor = (isCleared) => {
+  getButtonColor = (isCleared) => {
     return isCleared ? 'success' : 'error';
   };
 
-  return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h4" gutterBottom>
-          City Buttons
-        </Typography>
+  render() {
+    const { selectedLocation, clearanceStatus } = this.state;
 
-        {/* Hyderabad Button */}
-        <Button variant="contained" color="primary" onClick={handleHyderabadClick} sx={{ mt: 3 }}>
-          Hyderabad
-        </Button>
-        <Collapse in={isHyderabadOpen}>
-          <Box sx={{ mt: 2 }}>
-            <Button
-              component={Link}
-              href="/hyderabad/it"
-              variant="outlined"
-              color={getButtonColor(hyderabadClearance.it)}
-              onClick={() => handleHyderabadClearance('it')}
-              sx={{ mr: 1, mt: 1 }}
-            >
-              IT
-            </Button>
-            <Button
-              component={Link}
-              href="/hyderabad/travel"
-              variant="outlined"
-              color={getButtonColor(hyderabadClearance.travel)}
-              onClick={() => handleHyderabadClearance('travel')}
-              sx={{ mr: 1, mt: 1 }}
-            >
-              Travel and Expenses
-            </Button>
-            {/* Add other Hyderabad internal buttons with corresponding clearance status */}
-          </Box>
-        </Collapse>
+    return (
+      <Container maxWidth="sm">
+        <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography variant="h4" gutterBottom>
+            City Buttons
+          </Typography>
 
-        {/* Mumbai Button */}
-        <Button variant="contained" color="primary" onClick={handleMumbaiClick} sx={{ mt: 3 }}>
-          Mumbai
-        </Button>
-        <Collapse in={isMumbaiOpen}>
-          <Box sx={{ mt: 2 }}>
-            {/* Add Mumbai internal buttons with clearance status here */}
-          </Box>
-        </Collapse>
-      </Box>
-    </Container>
-  );
-};
+          <FormControl sx={{ mt: 3 }}>
+            <Select value={selectedLocation} onChange={this.handleLocationChange} displayEmpty>
+              <MenuItem value="" disabled>
+                Select Location:
+              </MenuItem>
+              <MenuItem value="hyderabad">Hyderabad</MenuItem>
+              <MenuItem value="mumbai">Mumbai</MenuItem>
+            </Select>
+          </FormControl>
 
-export default IndexPage;
-
-
-
-useeffect fix
-
-import React, { useState, useEffect } from 'react';
-import { Container, Box, Typography, Button, Collapse } from '@mui/material';
-import { Link } from '@mui/material';
-
-const IndexPage = () => {
-  const [isHyderabadOpen, setHyderabadOpen] = useState(false);
-  const [isMumbaiOpen, setMumbaiOpen] = useState(false);
-  const [hyderabadClearance, setHyderabadClearance] = useState({
-    it: false,
-    travel: false,
-    payroll: false,
-    greTeam: false,
-    corporateTravel: false,
-    carLease: false,
-    logistics: false,
-  });
-
-  const [mumbaiClearance, setMumbaiClearance] = useState({
-    // Add Mumbai internal buttons and their clearance state here
-  });
-
-  const handleHyderabadClick = () => {
-    setHyderabadOpen(!isHyderabadOpen);
-  };
-
-  const handleMumbaiClick = () => {
-    setMumbaiOpen(!isMumbaiOpen);
-  };
-
-  const handleHyderabadClearance = (department) => {
-    setHyderabadClearance((prevClearance) => ({
-      ...prevClearance,
-      [department]: !prevClearance[department],
-    }));
-  };
-
-  const handleMumbaiClearance = (department) => {
-    setMumbaiClearance((prevClearance) => ({
-      ...prevClearance,
-      [department]: !prevClearance[department],
-    }));
-  };
-
-  const getButtonColor = (isCleared) => {
-    return isCleared ? 'success' : 'error';
-  };
-
-  useEffect(() => {
-    // Code inside useEffect will only run on the client-side
-    // Add any client-side initialization here
-  }, []); // Empty dependency array ensures it runs only once after initial render
-
-  return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h4" gutterBottom>
-          City Buttons
-        </Typography>
-
-        {/* Hyderabad Button */}
-        <Button variant="contained" color="primary" onClick={handleHyderabadClick} sx={{ mt: 3 }}>
-          Hyderabad
-        </Button>
-        <Collapse in={isHyderabadOpen}>
-          <Box sx={{ mt: 2 }}>
-            <Button
-              component={Link}
-              href="/hyderabad/it"
-              variant="outlined"
-              color={getButtonColor(hyderabadClearance.it)}
-              onClick={() => handleHyderabadClearance('it')}
-              sx={{ mr: 1, mt: 1 }}
-            >
-              IT
-            </Button>
-            <Button
-              component={Link}
-              href="/hyderabad/travel"
-              variant="outlined"
-              color={getButtonColor(hyderabadClearance.travel)}
-              onClick={() => handleHyderabadClearance('travel')}
-              sx={{ mr: 1, mt: 1 }}
-            >
-              Travel and Expenses
-            </Button>
-            {/* Add other Hyderabad internal buttons with corresponding clearance status */}
-          </Box>
-        </Collapse>
-
-        {/* Mumbai Button */}
-        <Button variant="contained" color="primary" onClick={handleMumbaiClick} sx={{ mt: 3 }}>
-          Mumbai
-        </Button>
-        <Collapse in={isMumbaiOpen}>
-          <Box sx={{ mt: 2 }}>
-            {/* Add Mumbai internal buttons with clearance status here */}
-          </Box>
-        </Collapse>
-      </Box>
-    </Container>
-  );
-};
+          {selectedLocation && (
+            <Accordion sx={{ mt: 3 }}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Button variant="contained" color="primary">
+                  {selectedLocation}
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <Button
+                    component={Link}
+                    href={`/${selectedLocation}/it`}
+                    variant="outlined"
+                    color={this.getButtonColor(clearanceStatus[selectedLocation].IT)}
+                    onClick={() => this.toggleClearanceStatus('IT')}
+                    sx={{ mt: 1 }}
+                  >
+                    IT
+                  </Button>
+                  <Button
+                    component={Link}
+                    href={`/${selectedLocation}/travel`}
+                    variant="outlined"
+                    color={this.getButtonColor(clearanceStatus[selectedLocation].Travel)}
+                    onClick={() => this.toggleClearanceStatus('Travel')}
+                    sx={{ mt: 1 }}
+                  >
+                    Travel and Expenses
+                  </Button>
+                  {/* Add other internal buttons for the selected location with corresponding clearance status */}
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+          )}
+        </Box>
+      </Container>
+    );
+  }
+}
 
 export default IndexPage;
