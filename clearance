@@ -99,3 +99,112 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+
+
+
+useeffect fix
+
+import React, { useState, useEffect } from 'react';
+import { Container, Box, Typography, Button, Collapse } from '@mui/material';
+import { Link } from '@mui/material';
+
+const IndexPage = () => {
+  const [isHyderabadOpen, setHyderabadOpen] = useState(false);
+  const [isMumbaiOpen, setMumbaiOpen] = useState(false);
+  const [hyderabadClearance, setHyderabadClearance] = useState({
+    it: false,
+    travel: false,
+    payroll: false,
+    greTeam: false,
+    corporateTravel: false,
+    carLease: false,
+    logistics: false,
+  });
+
+  const [mumbaiClearance, setMumbaiClearance] = useState({
+    // Add Mumbai internal buttons and their clearance state here
+  });
+
+  const handleHyderabadClick = () => {
+    setHyderabadOpen(!isHyderabadOpen);
+  };
+
+  const handleMumbaiClick = () => {
+    setMumbaiOpen(!isMumbaiOpen);
+  };
+
+  const handleHyderabadClearance = (department) => {
+    setHyderabadClearance((prevClearance) => ({
+      ...prevClearance,
+      [department]: !prevClearance[department],
+    }));
+  };
+
+  const handleMumbaiClearance = (department) => {
+    setMumbaiClearance((prevClearance) => ({
+      ...prevClearance,
+      [department]: !prevClearance[department],
+    }));
+  };
+
+  const getButtonColor = (isCleared) => {
+    return isCleared ? 'success' : 'error';
+  };
+
+  useEffect(() => {
+    // Code inside useEffect will only run on the client-side
+    // Add any client-side initialization here
+  }, []); // Empty dependency array ensures it runs only once after initial render
+
+  return (
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography variant="h4" gutterBottom>
+          City Buttons
+        </Typography>
+
+        {/* Hyderabad Button */}
+        <Button variant="contained" color="primary" onClick={handleHyderabadClick} sx={{ mt: 3 }}>
+          Hyderabad
+        </Button>
+        <Collapse in={isHyderabadOpen}>
+          <Box sx={{ mt: 2 }}>
+            <Button
+              component={Link}
+              href="/hyderabad/it"
+              variant="outlined"
+              color={getButtonColor(hyderabadClearance.it)}
+              onClick={() => handleHyderabadClearance('it')}
+              sx={{ mr: 1, mt: 1 }}
+            >
+              IT
+            </Button>
+            <Button
+              component={Link}
+              href="/hyderabad/travel"
+              variant="outlined"
+              color={getButtonColor(hyderabadClearance.travel)}
+              onClick={() => handleHyderabadClearance('travel')}
+              sx={{ mr: 1, mt: 1 }}
+            >
+              Travel and Expenses
+            </Button>
+            {/* Add other Hyderabad internal buttons with corresponding clearance status */}
+          </Box>
+        </Collapse>
+
+        {/* Mumbai Button */}
+        <Button variant="contained" color="primary" onClick={handleMumbaiClick} sx={{ mt: 3 }}>
+          Mumbai
+        </Button>
+        <Collapse in={isMumbaiOpen}>
+          <Box sx={{ mt: 2 }}>
+            {/* Add Mumbai internal buttons with clearance status here */}
+          </Box>
+        </Collapse>
+      </Box>
+    </Container>
+  );
+};
+
+export default IndexPage;
