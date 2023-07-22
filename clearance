@@ -1,43 +1,58 @@
 import React from 'react';
-import { Container, Box, Typography, Button } from '@mui/material';
+import { Container, Box, Typography, Button, CssBaseline } from '@mui/material';
 
 const IndexPage = () => {
   const statusData = {
     IT: 'approved',
-    Travel and Expenses: 'pending',
+    'Travel and Expenses': 'pending',
     Payroll: 'rejected',
-    GRE Team: 'approved',
-    Corporate Travel: 'pending',
-    Car Lease: 'rejected',
+    'GRE Team': 'approved',
+    'Corporate Travel': 'pending',
+    'Car Lease': 'rejected',
     Logistics: 'approved',
   };
 
   const getStatusColor = (status) => {
     switch (status) {
       case 'approved':
-        return 'success';
+        return '#4CAF50'; // Green
       case 'pending':
-        return 'warning';
+        return '#FFC107'; // Orange
       case 'rejected':
-        return 'error';
+        return '#F44336'; // Red
       default:
-        return 'primary'; // Use primary color as the default color
+        return '#3F51B5'; // Primary color
     }
   };
 
   return (
     <Container maxWidth="sm">
+      <CssBaseline /> {/* Apply MUI baseline styles */}
       <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography variant="h4" gutterBottom>
           Clearance Status
         </Typography>
-        <Box sx={{ border: '1px solid #ccc', borderRadius: '8px', p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Box
+          sx={{
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: '#f0f0f0', // Set the background color for the border box
+          }}
+        >
           {Object.keys(statusData).map((department) => (
             <Button
               key={department}
               variant="contained"
-              color={getStatusColor(statusData[department])}
-              sx={{ mt: 1, width: '100%' }} // Set width to 100% to expand the buttons to fit the box
+              color="primary"
+              sx={{
+                mt: 1,
+                width: '100%',
+                backgroundColor: getStatusColor(statusData[department]) + ' !important', // Apply the color directly and override MUI styles
+              }}
             >
               {department}
             </Button>
