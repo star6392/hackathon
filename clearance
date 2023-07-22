@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Box, Typography, Button, CssBaseline, FormControl, FormControlLabel, Radio, RadioGroup, FormLabel, Table, TableBody, TableCell, TableRow } from '@mui/material';
+import { Container, Box, Typography, Button, CssBaseline } from '@mui/material';
 
 const IndexPage = () => {
   const statusData = {
@@ -44,59 +44,14 @@ const IndexPage = () => {
             backgroundColor: '#f0f0f0', // Set the background color for the border box
           }}
         >
-          <FormControl component="fieldset" fullWidth margin="normal">
-            <FormLabel component="legend">NCR Office Location</FormLabel>
-            <RadioGroup aria-label="ncr-office-location" name="ncrOfficeLocation" defaultValue="Hyderabad">
-              <FormControlLabel value="Hyderabad" control={<Radio />} label="Hyderabad" />
-              <FormControlLabel value="Godrej Mumbai" control={<Radio />} label="Godrej Mumbai" />
-            </RadioGroup>
-          </FormControl>
-        </Box>
-
-        <Box
-          sx={{
-            mt: 4,
-            p: 2,
-            border: '1px solid #ccc',
-            borderRadius: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            backgroundColor: '#f0f0f0', // Set the background color for the border box
-          }}
-        >
-          <FormControl component="fieldset" fullWidth margin="normal">
-            <FormLabel component="legend">Experience</FormLabel>
-            <Table>
-              <TableBody>
-                {/* Experience rows and columns will be added here */}
-                <TableRow>
-                  {/* ... (experience field content) */}
-                </TableRow>
-              </TableBody>
-            </Table>
-          </FormControl>
-        </Box>
-
-        <Box
-          sx={{
-            mt: 3,
-            p: 2,
-            border: '1px solid #ccc',
-            borderRadius: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            backgroundColor: '#f0f0f0', // Set the background color for the border box
-          }}
-        >
           {Object.keys(statusData).map((department) => (
             <Button
               key={department}
               variant="contained"
               color="primary"
+              size="large" // Make the buttons bigger
               sx={{
-                mt: 1,
+                mt: 2, // Increase the margin between buttons
                 width: '100%',
                 backgroundColor: getStatusColor(statusData[department]) + ' !important', // Apply the color directly and override MUI styles
               }}
