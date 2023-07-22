@@ -1,110 +1,51 @@
-'use client'
 import React from 'react';
-import { Container, Box, Typography, Button, Accordion, AccordionSummary, AccordionDetails, FormControl, Select, MenuItem } from '@mui/material';
-import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
-import { Link } from '@mui/material';
+import { Container, Box, Typography, Button } from '@mui/material';
 
-class IndexPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedLocation: null,
-      clearanceStatus: {
-        hyderabad: {
-          IT: false,
-          Travel: false,
-          Payroll: false,
-          GRETeam: false,
-          CorporateTravel: false,
-          CarLease: false,
-          Logistics: false,
-        },
-        mumbai: {
-          // Add Mumbai internal buttons and their clearance status here
-        },
-      },
-    };
-  }
-
-  handleLocationChange = (event) => {
-    this.setState({ selectedLocation: event.target.value });
+const IndexPage = () => {
+  const statusData = {
+    IT: 'approved',
+    'Travel and Expenses': 'pending',
+    Payroll: 'rejected',
+    'GRE Team': 'approved',
+    'Corporate Travel': 'pending',
+    'Car Lease': 'rejected',
+    Logistics: 'approved',
   };
 
-  toggleClearanceStatus = (department) => {
-    const { selectedLocation, clearanceStatus } = this.state;
-    this.setState({
-      clearanceStatus: {
-        ...clearanceStatus,
-        [selectedLocation]: {
-          ...clearanceStatus[selectedLocation],
-          [department]: !clearanceStatus[selectedLocation][department],
-        },
-      },
-    });
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'approved':
+        return 'success';
+      case 'pending':
+        return 'warning';
+      case 'rejected':
+        return 'error';
+      default:
+        return 'default';
+    }
   };
 
-  getButtonColor = (isCleared) => {
-    return isCleared ? 'success' : 'error';
-  };
-
-  render() {
-    const { selectedLocation, clearanceStatus } = this.state;
-
-    return (
-      <Container maxWidth="sm">
-        <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Typography variant="h4" gutterBottom>
-            City Buttons
-          </Typography>
-
-          <FormControl sx={{ mt: 3 }}>
-            <Select value={selectedLocation} onChange={this.handleLocationChange} displayEmpty>
-              <MenuItem value="" disabled>
-                Select Location:
-              </MenuItem>
-              <MenuItem value="hyderabad">Hyderabad</MenuItem>
-              <MenuItem value="mumbai">Mumbai</MenuItem>
-            </Select>
-          </FormControl>
-
-          {selectedLocation && (
-            <Accordion sx={{ mt: 3 }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Button variant="contained" color="primary">
-                  {selectedLocation}
-                </Button>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <Button
-                    component={Link}
-                    href={`/${selectedLocation}/it`}
-                    variant="outlined"
-                    color={this.getButtonColor(clearanceStatus[selectedLocation].IT)}
-                    onClick={() => this.toggleClearanceStatus('IT')}
-                    sx={{ mt: 1 }}
-                  >
-                    IT
-                  </Button>
-                  <Button
-                    component={Link}
-                    href={`/${selectedLocation}/travel`}
-                    variant="outlined"
-                    color={this.getButtonColor(clearanceStatus[selectedLocation].Travel)}
-                    onClick={() => this.toggleClearanceStatus('Travel')}
-                    sx={{ mt: 1 }}
-                  >
-                    Travel and Expenses
-                  </Button>
-                  {/* Add other internal buttons for the selected location with corresponding clearance status */}
-                </Box>
-              </AccordionDetails>
-            </Accordion>
-          )}
+  return (
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography variant="h4" gutterBottom>
+          Clearance Status
+        </Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {Object.keys(statusData).map((department) => (
+            <Button
+              key={department}
+              variant="contained"
+              color={getStatusColor(statusData[department])}
+              sx={{ mt: 1 }}
+            >
+              {department}
+            </Button>
+          ))}
         </Box>
-      </Container>
-    );
-  }
-}
+      </Box>
+    </Container>
+  );
+};
 
 export default IndexPage;
