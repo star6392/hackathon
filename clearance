@@ -31,17 +31,19 @@ const IndexPage = () => {
         <Typography variant="h4" gutterBottom>
           Clearance Status
         </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          {Object.keys(statusData).map((department) => (
-            <Button
-              key={department}
-              variant="contained"
-              color={getStatusColor(statusData[department])}
-              sx={{ mt: 1 }}
-            >
-              {department}
-            </Button>
-          ))}
+        <Box sx={{ border: '1px solid #ccc', borderRadius: '8px', p: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            {Object.keys(statusData).map((department) => (
+              <Button
+                key={department}
+                variant="contained"
+                color={getStatusColor(statusData[department])}
+                sx={{ mt: 1 }}
+              >
+                {department}
+              </Button>
+            ))}
+          </Box>
         </Box>
       </Box>
     </Container>
