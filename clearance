@@ -4,11 +4,11 @@ import { Container, Box, Typography, Button } from '@mui/material';
 const IndexPage = () => {
   const statusData = {
     IT: 'approved',
-    'Travel and Expenses': 'pending',
+    Travel and Expenses: 'pending',
     Payroll: 'rejected',
-    'GRE Team': 'approved',
-    'Corporate Travel': 'pending',
-    'Car Lease': 'rejected',
+    GRE Team: 'approved',
+    Corporate Travel: 'pending',
+    Car Lease: 'rejected',
     Logistics: 'approved',
   };
 
@@ -21,7 +21,7 @@ const IndexPage = () => {
       case 'rejected':
         return 'error';
       default:
-        return 'default';
+        return 'primary'; // Use primary color as the default color
     }
   };
 
@@ -31,19 +31,17 @@ const IndexPage = () => {
         <Typography variant="h4" gutterBottom>
           Clearance Status
         </Typography>
-        <Box sx={{ border: '1px solid #ccc', borderRadius: '8px', p: 2 }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {Object.keys(statusData).map((department) => (
-              <Button
-                key={department}
-                variant="contained"
-                color={getStatusColor(statusData[department])}
-                sx={{ mt: 1 }}
-              >
-                {department}
-              </Button>
-            ))}
-          </Box>
+        <Box sx={{ border: '1px solid #ccc', borderRadius: '8px', p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {Object.keys(statusData).map((department) => (
+            <Button
+              key={department}
+              variant="contained"
+              color={getStatusColor(statusData[department])}
+              sx={{ mt: 1, width: '100%' }} // Set width to 100% to expand the buttons to fit the box
+            >
+              {department}
+            </Button>
+          ))}
         </Box>
       </Box>
     </Container>
